@@ -79,7 +79,7 @@ namespace DS3231 {
     /**
      * get Year
      */
-    //% blockId="DS3231_GET_YEAR" block="year"
+    //% blockId="DS3231_GET_YEAR" block="Jahr"
     //% weight=99 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function year(){
