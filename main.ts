@@ -162,7 +162,7 @@ namespace DS3231 {
     /**
      *  get control register
      */
-    //% blockId="DS3231_GET_CONTROL" block="control"
+    //% blockId="DS3231_GET_CONTROL" block="Kontrolle"
     //% weight=88 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function control(){
