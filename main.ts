@@ -89,7 +89,7 @@ namespace DS3231 {
     /**
      * get Month
      */
-    //% blockId="DS3231_GET_MONTH" block="month"
+    //% blockId="DS3231_GET_MONTH" block="Monat"
     //% weight=98 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function month() {
@@ -99,7 +99,7 @@ namespace DS3231 {
     /**
      * get Date
      */
-    //% blockId="DS3231_GET_DATE" block="date"
+    //% blockId="DS3231_GET_DATE" block="Tag"
     //% weight=97 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function date() {
@@ -110,7 +110,7 @@ namespace DS3231 {
     /**
      * get (Week) Day
      */
-    //% blockId="DS3231_GET_DAY" block="day"
+    //% blockId="DS3231_GET_DAY" block="Wochentag"
     //% weight=96 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function day(){
@@ -152,7 +152,7 @@ namespace DS3231 {
     /**
      *  get status register
      */
-    //% blockId="DS3231_GET_STATUS" block="status"
+    //% blockId="DS3231_GET_STATUS" block="Status"
     //% weight=90 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function status() {
