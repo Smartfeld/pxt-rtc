@@ -34,7 +34,7 @@ namespace DS3231 {
     let DS3231_REG_DAY  =     0x03
     let DS3231_REG_DATE =     0x04
     let DS3231_REG_MONTH =    0x05
-    let DS3231_REG_YEAR =     0x06
+    let DS3231_REG_Jahr =     0x06
     let DS3231_REG_A1BASE =   0x08
     let DS3231_REG_A2BASE =   0x0b
     let DS3231_REG_CTRL =     0x0e
@@ -77,13 +77,13 @@ namespace DS3231 {
 
 
     /**
-     * get year
+     * get Jahr
      */
-    //% blockId="DS3231_GET_YEAR" block="Jahr"
+    //% blockId="DS3231_GET_Jahr" block="Jahr"
     //% weight=99 blockGap=8
     //% parts=DS3231 trackArgs=0
-    export function year(){
-        return Math.min(bcdToDec(regValue(DS3231_REG_YEAR)), 99) + 2000
+    export function Jahr(){
+        return Math.min(bcdToDec(regValue(DS3231_REG_Jahr)), 99) + 2000
     }
 
     /**
@@ -191,7 +191,7 @@ namespace DS3231 {
 
     /**
      * set Date and Time
-     * @param year is the Jahr  to be set, eg: 2020
+     * @param Jahr is the Jahr  to be set, eg: 2020
      * @param month is the Month  to be set, eg: 2
      * @param date is the Date  to be set, eg: 15
      * @param day is the day (of the week) to be set, eg: 4
@@ -199,8 +199,8 @@ namespace DS3231 {
      * @param minute is the Minute to be set, eg: 0
      * @param second is the Second to be set, eg: 0
      */
-    //% blockId="DS3231_SET_DATETIME" block="setze das Jahr %year|month %month|date %date|day %day|hour %hour|minute %minute|second %second"
-    //% year.min=2000 year.max=2099
+    //% blockId="DS3231_SET_DATETIME" block="setze das Jahr %Jahr|month %month|date %date|day %day|hour %hour|minute %minute|second %second"
+    //% Jahr.min=2000 Jahr.max=2099
     //% month.min=1   month.max=12
     //% date.min=1    date.max=31
     //% day.min=1     day.max=7
@@ -209,7 +209,7 @@ namespace DS3231 {
     //% second.min=0  second.max=59
     //% weight=60 blockGap
     //% parts=DS3231 trackArgs=0
-    export function dateTime(year: number, month: number, date: number, day: number, hour: number, minute: number, second: number){
+    export function dateTime(Jahr: number, month: number, date: number, day: number, hour: number, minute: number, second: number){
         let buf = pins.createBuffer(8);
         buf[0] = DS3231_REG_SECOND;
         buf[1] = decToBcd(second);
@@ -218,7 +218,7 @@ namespace DS3231 {
         buf[4] = decToBcd(day);
         buf[5] = decToBcd(date);
         buf[6] = decToBcd(month);
-        buf[7] = decToBcd(year-2000);//bug fix, notified by pull req from mworkfun
+        buf[7] = decToBcd(Jahr-2000);//bug fix, notified by pull req from mworkfun
         pins.i2cWriteBuffer(DS3231_I2C_ADDR, buf)
     }
     
