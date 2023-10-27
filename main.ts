@@ -77,7 +77,7 @@ namespace DS3231 {
 
 
     /**
-     * get Year
+     * zeige das Jahr
      */
     //% blockId="DS3231_GET_YEAR" block="Jahr"
     //% weight=99 blockGap=8
