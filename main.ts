@@ -89,7 +89,7 @@ namespace DS3231 {
     /**
      * get Month
      */
-    //% blockId="DS3231_GET_MONTH" block="month"
+    //% blockId="DS3231_GET_MONTH" block="Monat"
     //% weight=98 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function month() {
@@ -99,7 +99,7 @@ namespace DS3231 {
     /**
      * get Date
      */
-    //% blockId="DS3231_GET_DATE" block="date"
+    //% blockId="DS3231_GET_DATE" block="Tag"
     //% weight=97 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function date() {
@@ -110,7 +110,7 @@ namespace DS3231 {
     /**
      * get (Week) Day
      */
-    //% blockId="DS3231_GET_DAY" block="day"
+    //% blockId="DS3231_GET_DAY" block="Wochentag"
     //% weight=96 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function day(){
@@ -121,7 +121,7 @@ namespace DS3231 {
     /**
      * get Hour
      */
-    //% blockId="DS3231_GET_HOUR" block="hour"
+    //% blockId="DS3231_GET_HOUR" block="Stunde"
     //% weight=95 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function hour() {
@@ -132,7 +132,7 @@ namespace DS3231 {
     /**
      * get Minute
      */
-    //% blockId="DS3231_GET_MINUTE" block="minute"
+    //% blockId="DS3231_GET_MINUTE" block="Minute"
     //% weight=94 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function minute() {
@@ -143,7 +143,7 @@ namespace DS3231 {
     /**
      * get Second
      */
-    //% blockId="DS3231_GET_SECOND" block="second"
+    //% blockId="DS3231_GET_SECOND" block="Sekunde"
     //% weight=93 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function second() {
@@ -152,7 +152,7 @@ namespace DS3231 {
     /**
      *  get status register
      */
-    //% blockId="DS3231_GET_STATUS" block="status"
+    //% blockId="DS3231_GET_STATUS" block="Status"
     //% weight=90 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function status() {
@@ -172,7 +172,7 @@ namespace DS3231 {
     /**
      *  get temperature upper register
      */
-    //% blockId="DS3231_GET_TEMPU" block="temperature (upper)"
+    //% blockId="DS3231_GET_TEMPU" block="Temperatur (obere)"
     //% weight=86 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function temperatureUpper() {
@@ -182,7 +182,7 @@ namespace DS3231 {
     /**
      *  get temperature lower register
      */
-    //% blockId="DS3231_GET_TEMPL" block="temperature (lower)"
+    //% blockId="DS3231_GET_TEMPL" block="Temperatur (untere)"
     //% weight=84 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function temperatureLower(){
