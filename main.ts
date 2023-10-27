@@ -77,7 +77,7 @@ namespace DS3231 {
 
 
     /**
-     * zeige das Jahr
+     * get year
      */
     //% blockId="DS3231_GET_YEAR" block="Jahr"
     //% weight=99 blockGap=8
@@ -199,7 +199,7 @@ namespace DS3231 {
      * @param minute is the Minute to be set, eg: 0
      * @param second is the Second to be set, eg: 0
      */
-    //% blockId="DS3231_SET_DATETIME" block="set year %year|month %month|date %date|day %day|hour %hour|minute %minute|second %second"
+    //% blockId="DS3231_SET_DATETIME" block="setze das Jahr %year|month %month|date %date|day %day|hour %hour|minute %minute|second %second"
     //% year.min=2000 year.max=2099
     //% month.min=1   month.max=12
     //% date.min=1    date.max=31
