@@ -225,15 +225,15 @@ namespace DS3231 {
     
     /**
      * set Alarm mode and time registers for alarm An (n = 1 or 2)
-     * @param modeAn is the matching mode for An eg:hour minute
+     * @param modeAn is the matching Modus for An eg:hour minute
      * @param interruptAn is the interrup enable for An eg: on
      * @param name is the Alarm name (A1 or A2)
-     * @param date is the Date  to be set, eg: 15
-     * @param day is the day (of the week)  to be set, eg: 4
-     * @param hour is the Hour  to be set, eg: 13
+     * @param date is the Tag  to be set, eg: 15
+     * @param day is the Wochentag (of the week)  to be set, eg: 4
+     * @param hour is the Stunde  to be set, eg: 13
      * @param minute is the Minute to be set, eg: 0
      */
-    //% blockId="DS3231_ALARM" block="set alarm %name| mode %modeAn| date %date|day %day|hour %hour|minute %minute"
+    //% blockId="DS3231_ALARM" block="set Alarm %name| Modus %modeAn| Wochentag %date|Tag %day|Stunde %hour|Minute %minute"
     //% date.min=1    date.max=31
     //% day.min=1     day.max=7
     //% hour.min=0    hour.max=23
@@ -279,7 +279,7 @@ namespace DS3231 {
      * @param name is the Alarm name (A1 or A2)
      * @param mode is Enable or Disable
      */
-    //% blockId="DS3231_ALARM_INTERRUPT_ENABLE" block="alarm interrupt enable  %name |%mode"
+    //% blockId="DS3231_ALARM_INTERRUPT_ENABLE" block="Alarmunterbrechung aktivieren  %name |%mode"
     //% weight=56 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function disableAlarm(name: alarmNum, mode: interruptEnable){
@@ -305,7 +305,7 @@ namespace DS3231 {
      * clear alarm flag An (n = 1 or 2)
      * @param name is the Alarm name (A1 or A2)
      */
-    //% blockId="DS3231_CLEAR_ALARM_FLAG" block="clear alarm flag %name"
+    //% blockId="DS3231_CLEAR_ALARM_FLAG" block="Alarmflagge löschen %name"
     //% weight=52 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function clearAlarmFlag(name: alarmNum){
@@ -321,7 +321,7 @@ namespace DS3231 {
      * configure INTCN
      * @param name is the Alarm name (A1 or A2)
      */
-    //% blockId="DS3231_CONFIG_INTCN" block="configure INTCN %mode"
+    //% blockId="DS3231_CONFIG_INTCN" block="konfiguriere INTCN %mode"
     //% weight=50 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function configureINTCN(mode: interruptEnable){
@@ -337,7 +337,7 @@ namespace DS3231 {
     /**
      * read any register - for DEBUG only
      */
-    //% blockId="DS3231_GET_ANYREG" block="read register %reg"
+    //% blockId="DS3231_GET_ANYREG" block="Register lesen %reg"
     //% weight=48 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function readReg(reg: number) {
