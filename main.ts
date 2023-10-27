@@ -205,7 +205,7 @@ namespace DS3231 {
     //% date.min=1    date.max=31
     //% Wochentag.min=1     Wochentag.max=7
     //% Stunde.min=0    hour.max=23
-    //% minute.min=0  minute.max=59
+    //% Minute.min=0  Minute.max=59
     //% second.min=0  second.max=59
     //% weight=60 blockGap
     //% parts=DS3231 trackArgs=0
