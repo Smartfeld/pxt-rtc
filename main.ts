@@ -191,7 +191,7 @@ namespace DS3231 {
 
     /**
      * set Date and Time
-     * @param year is the Year  to be set, eg: 2020
+     * @param year is the Jahr  to be set, eg: 2020
      * @param month is the Month  to be set, eg: 2
      * @param date is the Date  to be set, eg: 15
      * @param day is the day (of the week) to be set, eg: 4
