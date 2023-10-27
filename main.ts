@@ -194,7 +194,7 @@ namespace DS3231 {
      * @param Jahr is the Jahr  to be set, eg: 2020
      * @param Monat is the Monat  to be set, eg: 2
      * @param Tag is the Tag  to be set, eg: 15
-     * @param day is the day (of the week) to be set, eg: 4
+     * @param day is the Wochentag (of the week) to be set, eg: 4
      * @param hour is the Hour  to be set, eg: 0
      * @param minute is the Minute to be set, eg: 0
      * @param second is the Second to be set, eg: 0
