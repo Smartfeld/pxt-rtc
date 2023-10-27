@@ -195,11 +195,11 @@ namespace DS3231 {
      * @param Monat is the Monat  to be set, eg: 2
      * @param Tag is the Tag  to be set, eg: 15
      * @param Wochentag is the Wochentag (of the week) to be set, eg: 4
-     * @param hour is the Hour  to be set, eg: 0
+     * @param Stunde is the Hour  to be set, eg: 0
      * @param minute is the Minute to be set, eg: 0
      * @param second is the Second to be set, eg: 0
      */
-    //% blockId="DS3231_SET_DATETIME" block="setze das Jahr %Jahr|Monat %Monat|Tag %Tag|Wochentag %Wochentag|hour %hour|minute %minute|second %second"
+    //% blockId="DS3231_SET_DATETIME" block="setze das Jahr %Jahr|Monat %Monat|Tag %Tag|Wochentag %Wochentag|hour %Stunde|minute %minute|second %second"
     //% Jahr.min=2000 Jahr.max=2099
     //% month.min=1   month.max=12
     //% date.min=1    date.max=31
