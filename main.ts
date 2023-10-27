@@ -25,7 +25,7 @@ enum interruptEnable {
 /**
  * DS3231 block
  */
-//% weight=20 color=#b77ff0 icon="\uf017" block="DS3231"
+//% weight=20 color=#b77ff0 icon="\uf017" block="Sensor DS3231"
 namespace DS3231 {
     let DS3231_I2C_ADDR =     0x68
     let DS3231_REG_SECOND =   0x00
@@ -121,7 +121,7 @@ namespace DS3231 {
     /**
      * get Hour
      */
-    //% blockId="DS3231_GET_HOUR" block="hour"
+    //% blockId="DS3231_GET_HOUR" block="Stunde"
     //% weight=95 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function hour() {
@@ -132,7 +132,7 @@ namespace DS3231 {
     /**
      * get Minute
      */
-    //% blockId="DS3231_GET_MINUTE" block="minute"
+    //% blockId="DS3231_GET_MINUTE" block="Minute"
     //% weight=94 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function minute() {
@@ -143,7 +143,7 @@ namespace DS3231 {
     /**
      * get Second
      */
-    //% blockId="DS3231_GET_SECOND" block="second"
+    //% blockId="DS3231_GET_SECOND" block="Sekunde"
     //% weight=93 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function second() {
@@ -162,7 +162,7 @@ namespace DS3231 {
     /**
      *  get control register
      */
-    //% blockId="DS3231_GET_CONTROL" block="Kontrolle"
+    //% blockId="DS3231_GET_CONTROL" block="Bedienung"
     //% weight=88 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function control(){
@@ -172,7 +172,7 @@ namespace DS3231 {
     /**
      *  get temperature upper register
      */
-    //% blockId="DS3231_GET_TEMPU" block="temperature (upper)"
+    //% blockId="DS3231_GET_TEMPU" block="Temperatur (obere)"
     //% weight=86 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function temperatureUpper() {
@@ -182,7 +182,7 @@ namespace DS3231 {
     /**
      *  get temperature lower register
      */
-    //% blockId="DS3231_GET_TEMPL" block="temperature (lower)"
+    //% blockId="DS3231_GET_TEMPL" block="Temperatur (untere)"
     //% weight=84 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function temperatureLower(){
