@@ -13,7 +13,7 @@ enum mode {
   Minute,
   HourMinute,
   DateHourMinute,
-  DayHourMinute
+  WochentagHourMinute
 }
 
 enum interruptEnable {
@@ -31,7 +31,7 @@ namespace DS3231 {
     let DS3231_REG_SECOND =   0x00
     let DS3231_REG_MINUTE =   0x01
     let DS3231_REG_HOUR =     0x02
-    let DS3231_REG_DAY  =     0x03
+    let DS3231_REG_Wochentag  =     0x03
     let DS3231_REG_DATE =     0x04
     let DS3231_REG_MONTH =    0x05
     let DS3231_REG_Jahr =     0x06
@@ -108,13 +108,13 @@ namespace DS3231 {
 
 
     /**
-     * get (Week) Day
+     * get (Week) Wochentag
      */
-    //% blockId="DS3231_GET_DAY" block="Wochentag"
+    //% blockId="DS3231_GET_Wochentag" block="Wochentag"
     //% weight=96 blockGap=8
     //% parts=DS3231 trackArgs=0
-    export function day(){
-        return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1)
+    export function Wochentag(){
+        return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_Wochentag)), 7), 1)
     }
 
 
@@ -194,28 +194,28 @@ namespace DS3231 {
      * @param Jahr is the Jahr  to be set, eg: 2020
      * @param Monat is the Monat  to be set, eg: 2
      * @param Tag is the Tag  to be set, eg: 15
-     * @param day is the Wochentag (of the week) to be set, eg: 4
+     * @param Wochentag is the Wochentag (of the week) to be set, eg: 4
      * @param hour is the Hour  to be set, eg: 0
      * @param minute is the Minute to be set, eg: 0
      * @param second is the Second to be set, eg: 0
      */
-    //% blockId="DS3231_SET_DATETIME" block="setze das Jahr %Jahr|Monat %Monat|Tag %Tag|day %Wochentag|hour %hour|minute %minute|second %second"
+    //% blockId="DS3231_SET_DATETIME" block="setze das Jahr %Jahr|Monat %Monat|Tag %Tag|Wochentag %Wochentag|hour %hour|minute %minute|second %second"
     //% Jahr.min=2000 Jahr.max=2099
     //% month.min=1   month.max=12
     //% date.min=1    date.max=31
-    //% day.min=1     day.max=7
+    //% Wochentag.min=1     Wochentag.max=7
     //% hour.min=0    hour.max=23
     //% minute.min=0  minute.max=59
     //% second.min=0  second.max=59
     //% weight=60 blockGap
     //% parts=DS3231 trackArgs=0
-    export function dateTime(Jahr: number, month: number, date: number, day: number, hour: number, minute: number, second: number){
+    export function dateTime(Jahr: number, month: number, date: number, Wochentag: number, hour: number, minute: number, second: number){
         let buf = pins.createBuffer(8);
         buf[0] = DS3231_REG_SECOND;
         buf[1] = decToBcd(second);
         buf[2] = decToBcd(minute);
         buf[3] = decToBcd(hour);
-        buf[4] = decToBcd(day);
+        buf[4] = decToBcd(Wochentag);
         buf[5] = decToBcd(date);
         buf[6] = decToBcd(month);
         buf[7] = decToBcd(Jahr-2000);//bug fix, notified by pull req from mworkfun
@@ -229,18 +229,18 @@ namespace DS3231 {
      * @param interruptAn is the interrup enable for An eg: on
      * @param name is the Alarm name (A1 or A2)
      * @param date is the Date  to be set, eg: 15
-     * @param day is the day (of the week)  to be set, eg: 4
+     * @param Wochentag is the Wochentag (of the week)  to be set, eg: 4
      * @param hour is the Hour  to be set, eg: 13
      * @param minute is the Minute to be set, eg: 0
      */
-    //% blockId="DS3231_ALARM" block="set alarm %name| mode %modeAn| date %date|day %day|hour %hour|minute %minute"
+    //% blockId="DS3231_ALARM" block="set alarm %name| mode %modeAn| date %date|Wochentag %Wochentag|hour %hour|minute %minute"
     //% date.min=1    date.max=31
-    //% day.min=1     day.max=7
+    //% Wochentag.min=1     Wochentag.max=7
     //% hour.min=0    hour.max=23
     //% minute.min=0  minute.max=59
     //% weight=58 blockGap
     //% parts=DS3231 trackArgs=0
-    export function setAlarm(name: alarmNum, modeAn: mode, date: number, day: number, hour: number, minute: number) {
+    export function setAlarm(name: alarmNum, modeAn: mode, date: number, Wochentag: number, hour: number, minute: number) {
         let buf = pins.createBuffer(4)
         buf[1] = decToBcd(minute)  //raw minutes, before AnM2 is set
         buf[2] = decToBcd(hour)    //raw hours before AnM3 is set
@@ -265,8 +265,8 @@ namespace DS3231 {
                 buf[3] = decToBcd(date)
                 break
             }
-            case mode.DayHourMinute: {
-              buf[3] = decToBcd(day)
+            case mode.WochentagHourMinute: {
+              buf[3] = decToBcd(Wochentag)
               buf[3] = buf[3] | 0x40 //set DY bit
             }
         }
