@@ -17,8 +17,8 @@ enum mode {
 }
 
 enum interruptEnable {
-  Enable,
-  Disable
+  Aktivieren,
+  Deaktivieren
 }
 
 
@@ -287,16 +287,16 @@ namespace DS3231 {
         switch(name) {
             case alarmNum.A1:
                 switch(mode){
-                    case interruptEnable.Enable: setReg(DS3231_REG_CTRL, control | 0x01)
+                    case interruptEnable.Aktivieren: setReg(DS3231_REG_CTRL, control | 0x01)
                     break
-                    case interruptEnable.Disable: setReg(DS3231_REG_CTRL, control & 0xfe)
+                    case interruptEnable.Deaktivieren: setReg(DS3231_REG_CTRL, control & 0xfe)
                 }
                 break
             case alarmNum.A2: setReg(DS3231_REG_CTRL, control & 0xfd)
                 switch(mode) {
-                    case interruptEnable.Enable: setReg(DS3231_REG_CTRL, control | 0x02)
+                    case interruptEnable.Aktivieren: setReg(DS3231_REG_CTRL, control | 0x02)
                     break
-                    case interruptEnable.Disable: setReg(DS3231_REG_CTRL, control & 0xfd)
+                    case interruptEnable.Deaktivieren: setReg(DS3231_REG_CTRL, control & 0xfd)
                 }
         }
     }
@@ -327,9 +327,9 @@ namespace DS3231 {
     export function configureINTCN(mode: interruptEnable){
         let control = regValue(DS3231_REG_CTRL)
         switch(mode){
-            case interruptEnable.Enable:  control = control | 0x04 //set b2
+            case interruptEnable.Aktivieren:  control = control | 0x04 //set b2
             break
-            case interruptEnable.Disable: control = control & 0xfb //reset b2
+            case interruptEnable.Deaktivieren: control = control & 0xfb //reset b2
         }
         setReg(DS3231_REG_CTRL, control)
     }
