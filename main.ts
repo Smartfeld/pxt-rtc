@@ -11,9 +11,9 @@ enum alarmNum {
 
 enum mode {
   Minute,
-  HourMinute,
-  DateHourMinute,
-  DayHourMinute
+  StundeMinute,
+  TagStundeMinute,
+  WochentagStundeMinute
 }
 
 enum interruptEnable {
@@ -199,7 +199,7 @@ namespace DS3231 {
      * @param minute is the Minute to be set, eg: 0
      * @param second is the Sekunde to be set, eg: 0
      */
-    //% blockId="DS3231_SET_DATETIME" block="set Jahr %year|Monat %month|Tag %date|Wochentag %day|Stunde %hour|Minute %minute|Sekunde %second"
+    //% blockId="DS3231_SET_DATETIME" block="setze Jahr %year|Monat %month|Tag %date|Wochentag %day|Stunde %hour|Minute %minute|Sekunde %second"
     //% year.min=2000 year.max=2099
     //% month.min=1   month.max=12
     //% date.min=1    date.max=31
@@ -233,7 +233,7 @@ namespace DS3231 {
      * @param hour is the Stunde  to be set, eg: 13
      * @param minute is the Minute to be set, eg: 0
      */
-    //% blockId="DS3231_ALARM" block="set Alarm %name| Modus %modeAn| Wochentag %date|Tag %day|Stunde %hour|Minute %minute"
+    //% blockId="DS3231_ALARM" block="setze Alarm %name| Modus %modeAn| Wochentag %date|Tag %day|Stunde %hour|Minute %minute"
     //% date.min=1    date.max=31
     //% day.min=1     day.max=7
     //% hour.min=0    hour.max=23
@@ -257,15 +257,15 @@ namespace DS3231 {
                 buf[2] = buf[2] | 0x80 //set AnM3
                 break
             }
-            case mode.HourMinute: {
+            case mode.StundeMinute: {
                 buf[3] = buf[3] | 0x80 //set AnM4
                 break
             }
-            case mode.DateHourMinute: {
+            case mode.TagStundeMinute: {
                 buf[3] = decToBcd(date)
                 break
             }
-            case mode.DayHourMinute: {
+            case mode.WochentagStundeMinute: {
               buf[3] = decToBcd(day)
               buf[3] = buf[3] | 0x40 //set DY bit
             }
@@ -321,7 +321,7 @@ namespace DS3231 {
      * configure INTCN
      * @param name is the Alarm name (A1 or A2)
      */
-    //% blockId="DS3231_CONFIG_INTCN" block="konfiguriere INTCN %mode"
+    //% blockId="DS3231_CONFIG_INTCN" block="INTCN konfigurieren  %mode"
     //% weight=50 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function configureINTCN(mode: interruptEnable){
