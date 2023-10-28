@@ -334,6 +334,20 @@ namespace DS3231 {
         setReg(DS3231_REG_CTRL, control)
     }
 
+    //Erweiterung von Leonie
+     /**
+     * timeString
+     */
+    //% block="Zeit als Zeichenfolge"
+    //% weight=80
+    export function timeString(): string {
+        let hour = bcdToDec(getRegister(DS3231_REG_HOUR))
+        let mins = bcdToDec(getRegister(DS3231_REG_MINUTE))
+        let secs = bcdToDec(getRegister(DS3231_REG_SECOND))
+        let timeString: string = "" + ((hour / 10)>>0) + hour % 10 + ":" + ((mins / 10)>>0) + mins % 10 + ":" + ((secs / 10)>>0) + secs % 10
+        return timeString
+    }
+
     /**
      * read any register - for DEBUG only
      */
