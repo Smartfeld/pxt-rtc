@@ -23,7 +23,7 @@ enum interruptEnable {
 
 
 /**
- * echtzeituhr block
+ * Echtzeituhr block
  */
 //% weight=20 color=#b77ff0 icon="\uf017" block="echtzeituhr"
 namespace echtzeituhr {
