@@ -84,9 +84,9 @@ namespace DS3231 {
     //% weight=100 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function timeString(): string {
-        let hour = bcdToDec(getRegister(DS3231_REG_HOUR))
-        let mins = bcdToDec(getRegister(DS3231_REG_MINUTE))
-        let secs = bcdToDec(getRegister(DS3231_REG_SECOND))
+        let hour = bcdToDec(regValue(DS3231_REG_HOUR))
+        let mins = bcdToDec(regValue(DS3231_REG_MINUTE))
+        let secs = bcdToDec(regValue(DS3231_REG_SECOND))
         let timeString: string = "" + ((hour / 10)>>0) + hour % 10 + ":" + ((mins / 10)>>0) + mins % 10 + ":" + ((secs / 10)>>0) + secs % 10
         return timeString
     }
