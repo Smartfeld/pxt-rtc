@@ -1,5 +1,5 @@
 {
-    "name": "Echtzeituhr",  
+    "name": "RTC Echtzeituhr",  
     "version": "0.1.2",
     "description": "Extension which provides access to the DS3231 RTC",
     "license": "Apache",
