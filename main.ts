@@ -76,6 +76,21 @@ namespace DS3231 {
     }
 
 
+    //Erweiterung von Leonie
+     /**
+     * Zeit als Zeichenfolge
+     */
+    //% block="Zeit als Zeichenfolge"
+    //% weight=100 blockGap=8
+    //% parts=DS3231 trackArgs=0
+    export function timeString(): string {
+        let hour = bcdToDec(getRegister(DS3231_REG_HOUR))
+        let mins = bcdToDec(getRegister(DS3231_REG_MINUTE))
+        let secs = bcdToDec(getRegister(DS3231_REG_SECOND))
+        let timeString: string = "" + ((hour / 10)>>0) + hour % 10 + ":" + ((mins / 10)>>0) + mins % 10 + ":" + ((secs / 10)>>0) + secs % 10
+        return timeString
+    }
+
     /**
      * get Year
      */
@@ -332,20 +347,6 @@ namespace DS3231 {
             case interruptEnable.Deaktivieren: control = control & 0xfb //reset b2
         }
         setReg(DS3231_REG_CTRL, control)
-    }
-
-    //Erweiterung von Leonie
-     /**
-     * timeString
-     */
-    //% block="Zeit als Zeichenfolge"
-    //% weight=80
-    export function timeString(): string {
-        let hour = bcdToDec(getRegister(DS3231_REG_HOUR))
-        let mins = bcdToDec(getRegister(DS3231_REG_MINUTE))
-        let secs = bcdToDec(getRegister(DS3231_REG_SECOND))
-        let timeString: string = "" + ((hour / 10)>>0) + hour % 10 + ":" + ((mins / 10)>>0) + mins % 10 + ":" + ((secs / 10)>>0) + secs % 10
-        return timeString
     }
 
     /**
