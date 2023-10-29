@@ -150,7 +150,7 @@ namespace DS3231 {
     /**
      * get (Week) Day
      */
-    //% blockId="DS3231_GET_DAY" block="Wochentag"
+    //% block="Wochentag"
     //% weight=95 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function day(){
