@@ -42,7 +42,6 @@ namespace DS3231 {
     let DS3231_REG_HOUR =     0x02
     let DS3231_REG_DAY  =     0x03
     let DS3231_REG_DATE =     0x04
-    let DS3231_GET_WEEKDAY_AS_STRING = 0x05
     let DS3231_REG_MONTH =    0x06
     let DS3231_REG_YEAR =     0x07
     let DS3231_REG_A1BASE =   0x08
@@ -166,7 +165,7 @@ namespace DS3231 {
 //% parts=DS3231 trackArgs=0
 export function dayName(): string {
     let numericDay = Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1);
-    return weekday[numericDay];
+    return weekday[numericDay-1];
 }
 
 
