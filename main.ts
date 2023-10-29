@@ -158,18 +158,6 @@ namespace DS3231 {
     }
 
     /**
- * weekday as string (monday to sunday)
- */
-//% blockId="DS3231_GET_WEEKDAY_AS_STRING" block="Wochentag als Text"
-//% weight=94 blockGap=8
-//% parts=DS3231 trackArgs=0
-export function dayName(): string {
-    let numericDay = Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1);
-    return weekday[0];
-}
-
-
-    /**
      * get Hour
      */
     //% blockId="DS3231_GET_HOUR" block="Stunde"
