@@ -21,6 +21,15 @@ enum interruptEnable {
   Deaktivieren
 }
 
+enum weekday {
+  Montag,
+  Dienstag,
+  Mittwoch,
+  Donnerstag,
+  Freitag, 
+  Samstag,
+  Sonntag
+}
 
 /**
  * DS3231 block
@@ -148,12 +157,24 @@ namespace DS3231 {
         return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1)
     }
 
+    /**
+ * Gibt den Wochentag als Zeichenfolge (Montag bis Sonntag) zurück
+ */
+//% block="Wochentag als Text"
+//% weight=94 blockGap=8
+//% parts=DS3231 trackArgs=0
+export function dayName(): string {
+    const daysOfWeek = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+    let numericDay = Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1);
+    return daysOfWeek[numericDay - 1];
+}
+
 
     /**
      * get Hour
      */
     //% blockId="DS3231_GET_HOUR" block="Stunde"
-    //% weight=94 blockGap=8
+    //% weight=93 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function hour() {
         return Math.min(bcdToDec(regValue(DS3231_REG_HOUR)), 23)
@@ -164,7 +185,7 @@ namespace DS3231 {
      * get Minute
      */
     //% blockId="DS3231_GET_MINUTE" block="Minute"
-    //% weight=93 blockGap=8
+    //% weight=92 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function minute() {
         return Math.min(bcdToDec(regValue(DS3231_REG_MINUTE)), 59)
@@ -175,7 +196,7 @@ namespace DS3231 {
      * get Second
      */
     //% blockId="DS3231_GET_SECOND" block="Sekunde"
-    //% weight=92 blockGap=8
+    //% weight=91 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function second() {
         return Math.min(bcdToDec(regValue(DS3231_REG_SECOND)), 59)
@@ -184,7 +205,7 @@ namespace DS3231 {
      *  get status register
      */
     //% blockId="DS3231_GET_STATUS" block="Status"
-    //% weight=91 blockGap=8
+    //% weight=90 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function status() {
         return (regValue(DS3231_REG_STATUS))
