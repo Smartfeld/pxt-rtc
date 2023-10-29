@@ -160,7 +160,8 @@ namespace DS3231 {
     /**
  * weekday as string (monday to sunday)
  */
-//% blockId="DS3231_GET_WEEKDAY_AS_STRING" block="Wochentag als Text"
+//% blockId="DS3231_GET_WEEKDAY_AS_STRING" 
+//block="Wochentag als Text"
 //% weight=94 blockGap=8
 //% parts=DS3231 trackArgs=0
 export function dayName(): string {
