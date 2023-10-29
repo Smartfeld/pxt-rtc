@@ -42,8 +42,9 @@ namespace DS3231 {
     let DS3231_REG_HOUR =     0x02
     let DS3231_REG_DAY  =     0x03
     let DS3231_REG_DATE =     0x04
-    let DS3231_REG_MONTH =    0x05
-    let DS3231_REG_YEAR =     0x06
+    let DS3231_GET_WEEKDAY_AS_STRING = 0x05
+    let DS3231_REG_MONTH =    0x06
+    let DS3231_REG_YEAR =     0x07
     let DS3231_REG_A1BASE =   0x08
     let DS3231_REG_A2BASE =   0x0b
     let DS3231_REG_CTRL =     0x0e
@@ -158,9 +159,9 @@ namespace DS3231 {
     }
 
     /**
- * Gibt den Wochentag als Zeichenfolge (Montag bis Sonntag) zurück
+ * weekday as string (monday to sunday)
  */
-//% block="Wochentag als Text"
+//% blockId="DS3231_GET_WEEKDAY_AS_STRING" block="Wochentag als Text"
 //% weight=94 blockGap=8
 //% parts=DS3231 trackArgs=0
 export function dayName(): string {
