@@ -77,6 +77,7 @@ namespace DS3231 {
 
 
     //Erweiterung von Leonie
+    
      /**
      * Zeit als Zeichenfolge
      */
@@ -91,11 +92,25 @@ namespace DS3231 {
         return timeString
     }
 
+     /**
+     * Datum als Zeichenfolge
+     */
+    //% block="Datum als Zeichenfolge"
+    //% weight=99 blockGap=8
+    //% parts=DS3231 trackArgs=0
+    export function dateString(): string {
+        let date = bcdToDec(regValue(DS3231_REG_DATE))
+        let month = bcdToDec(regValue(DS3231_REG_MONTH))
+        let year = bcdToDec(regValue(DS3231_REG_YEAR))
+        let dateString: string = "" + ((date / 10)>>0) + date % 10 + ":" + ((month / 10)>>0) + month % 10 + ":" + ((year / 10)>>0) + year % 10
+        return dateString
+    }
+
     /**
      * get Year
      */
     //% blockId="DS3231_GET_YEAR" block="Jahr"
-    //% weight=99 blockGap=8
+    //% weight=98 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function year(){
         return Math.min(bcdToDec(regValue(DS3231_REG_YEAR)), 99) + 2000
@@ -105,7 +120,7 @@ namespace DS3231 {
      * get Month
      */
     //% blockId="DS3231_GET_MONTH" block="Monat"
-    //% weight=98 blockGap=8
+    //% weight=97 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function month() {
         return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_MONTH)), 12), 1)
@@ -115,7 +130,7 @@ namespace DS3231 {
      * get Date
      */
     //% blockId="DS3231_GET_DATE" block="Tag"
-    //% weight=97 blockGap=8
+    //% weight=96 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function date() {
         return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DATE)), 31), 1)
@@ -126,7 +141,7 @@ namespace DS3231 {
      * get (Week) Day
      */
     //% blockId="DS3231_GET_DAY" block="Wochentag"
-    //% weight=96 blockGap=8
+    //% weight=95 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function day(){
         return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1)
@@ -137,7 +152,7 @@ namespace DS3231 {
      * get Hour
      */
     //% blockId="DS3231_GET_HOUR" block="Stunde"
-    //% weight=95 blockGap=8
+    //% weight=94 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function hour() {
         return Math.min(bcdToDec(regValue(DS3231_REG_HOUR)), 23)
@@ -148,7 +163,7 @@ namespace DS3231 {
      * get Minute
      */
     //% blockId="DS3231_GET_MINUTE" block="Minute"
-    //% weight=94 blockGap=8
+    //% weight=93 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function minute() {
         return Math.min(bcdToDec(regValue(DS3231_REG_MINUTE)), 59)
@@ -159,7 +174,7 @@ namespace DS3231 {
      * get Second
      */
     //% blockId="DS3231_GET_SECOND" block="Sekunde"
-    //% weight=93 blockGap=8
+    //% weight=92 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function second() {
         return Math.min(bcdToDec(regValue(DS3231_REG_SECOND)), 59)
@@ -168,7 +183,7 @@ namespace DS3231 {
      *  get status register
      */
     //% blockId="DS3231_GET_STATUS" block="Status"
-    //% weight=90 blockGap=8
+    //% weight=91 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function status() {
         return (regValue(DS3231_REG_STATUS))
