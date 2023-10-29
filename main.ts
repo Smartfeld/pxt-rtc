@@ -99,13 +99,13 @@ namespace DS3231 {
     //% weight=99 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function dateString(): string {
+        let day = bcdToDec(regValue(DS3231_REG_DAY))
         let date = bcdToDec(regValue(DS3231_REG_DATE))
-        let month = bcdToDec(regValue(DS3231_REG_MONTH))
-        let year = bcdToDec(regValue(DS3231_REG_YEAR))
-        //let dateString: string = date + ":" + month + ":" + year
-        let dateString: string = "" + ((date / 10)>>0) + date % 10 + ":" + ((month / 10)>>0) + month % 10 + ":" + ((year / 10)>>0) + year % 10
+        let month = bcdToDec(regValue(DS3231_REG_MONTH)) & 0x1F
+        let year = bcdToDec(regValue(DS3231_REG_YEAR)) + 2000
+        let dateString: string = `${day}:${date}:${month}:${year}`
         return dateString
-    }
+    }  
 
     /**
      * get Year
