@@ -165,8 +165,8 @@ namespace DS3231 {
 //% parts=DS3231 trackArgs=0
 export function dayName(): string {
     const daysOfWeek = ["Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag", "Montag"]
-    let numericDay = Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1)
-    let dayName = daysOfWeek[numericDay-1]
+    let numericDay = Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 8), 1)
+    let dayName = daysOfWeek[numericDay]
     return dayName
 }
 
