@@ -120,17 +120,18 @@ namespace DS3231 {
 //% weight=98 blockGap=8
 //% parts=DS3231 trackArgs=0
 export function unixTimestamp(): number {
-    let year = bcdToDec(regValue(DS3231_REG_YEAR))
-    let month = bcdToDec(regValue(DS3231_REG_MONTH)) - 1;
+    let year = bcdToDec(regValue(DS3231_REG_YEAR)) + 2000
+    let month = bcdToDec(regValue(DS3231_REG_MONTH))
     let day = bcdToDec(regValue(DS3231_REG_DATE))
     let hour = bcdToDec(regValue(DS3231_REG_HOUR))
     let minute = bcdToDec(regValue(DS3231_REG_MINUTE))
     let second = bcdToDec(regValue(DS3231_REG_SECOND))
 
-    let msSince1970 = Date.UTC(year, month - 1, day, hour, minute, second)
-    let unixTimestamp = Math.floor(msSince1970 / 1000)
+    let daysSince1970 = (year - 1970) * 365 + (month - 1) * 30 + day - 1; // Vereinfachte Berechnung, die keine Schaltjahre berücksichtigt
+    let seconds = hour * 3600 + minute * 60 + second;
+    let unixTimestamp = daysSince1970 * 86400 + seconds;
 
-    return unixTimestamp
+    return unixTimestamp;
 }
 
     /**
