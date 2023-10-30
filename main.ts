@@ -120,30 +120,27 @@ namespace DS3231 {
 //% weight=98 blockGap=8
 //% parts=DS3231 trackArgs=0
 export function unixTimestamp(): number {
-    let year = bcdToDec(regValue(DS3231_REG_YEAR)) + 2000;
-    let month = bcdToDec(regValue(DS3231_REG_MONTH));
-    let day = bcdToDec(regValue(DS3231_REG_DATE));
-    let hour = bcdToDec(regValue(DS3231_REG_HOUR));
-    let minute = bcdToDec(regValue(DS3231_REG_MINUTE));
-    let second = bcdToDec(regValue(DS3231_REG_SECOND));
+    let year = bcdToDec(regValue(DS3231_REG_YEAR)) + 2000
+    let month = bcdToDec(regValue(DS3231_REG_MONTH))
+    let day = bcdToDec(regValue(DS3231_REG_DATE))
+    let hour = bcdToDec(regValue(DS3231_REG_HOUR))
+    let minute = bcdToDec(regValue(DS3231_REG_MINUTE))
+    let second = bcdToDec(regValue(DS3231_REG_SECOND))
 
-    let unixTimestamp = second + minute * 60 + hour * 3600;
+    let unixTimestamp = second + minute * 60 + hour * 3600 + (day - 1) * 86400
 
-    for (let i = 1970; i < year; i++) {
-        if (i % 4 === 0 && (i % 100 !== 0 || i % 400 === 0)) {
-            unixTimestamp += 31622400; // Schaltjahr
-        } else {
-            unixTimestamp += 31536000; // Normales Jahr
-        }
+ for (let i = 1970; i < year; i++) {
+        unixTimestamp += (i % 4 == 0 && (i % 100 != 0 || i % 400 == 0)) ? 31622400 : 31536000;
     }
-    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    const daysInMonth = [31, (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     for (let i = 0; i < month - 1; i++) {
-        unixTimestamp += daysInMonth[i] * 86400
+        unixTimestamp += daysInMonth[i] * 86400;
     }
-    unixTimestamp += (day - 1) * 86400
 
-    return unixTimestamp
+    return unixTimestamp;
 }
+
+    
     /**
      * get Year
      */
