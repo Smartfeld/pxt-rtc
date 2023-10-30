@@ -121,7 +121,7 @@ namespace DS3231 {
 //% parts=DS3231 trackArgs=0
 export function unixTimestamp(): number {
     let year = bcdToDec(regValue(DS3231_REG_YEAR))
-    let month = bcdToDec(regValue(DS3231_REG_MONTH))
+    let month = bcdToDec(regValue(DS3231_REG_MONTH)) - 1;
     let day = bcdToDec(regValue(DS3231_REG_DATE))
     let hour = bcdToDec(regValue(DS3231_REG_HOUR))
     let minute = bcdToDec(regValue(DS3231_REG_MINUTE))
