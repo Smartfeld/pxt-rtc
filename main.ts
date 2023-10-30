@@ -127,10 +127,8 @@ export function unixTimestamp(): number {
     let minute = bcdToDec(regValue(DS3231_REG_MINUTE));
     let second = bcdToDec(regValue(DS3231_REG_SECOND));
 
-    // Berechnen Sie den Unix-Zeitstempel manuell.
     let unixTimestamp = second + minute * 60 + hour * 3600;
 
-    // Berücksichtigen Sie Schaltjahre seit 1970.
     for (let i = 1970; i < year; i++) {
         if (i % 4 === 0 && (i % 100 !== 0 || i % 400 === 0)) {
             unixTimestamp += 31622400; // Schaltjahr
@@ -138,17 +136,13 @@ export function unixTimestamp(): number {
             unixTimestamp += 31536000; // Normales Jahr
         }
     }
-
-    // Berücksichtigen Sie die Tage in den Monaten bis zum aktuellen Monat.
-    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     for (let i = 0; i < month - 1; i++) {
-        unixTimestamp += daysInMonth[i] * 86400;
+        unixTimestamp += daysInMonth[i] * 86400
     }
+    unixTimestamp += (day - 1) * 86400
 
-    // Fügen Sie die Anzahl der Tage im aktuellen Monat hinzu.
-    unixTimestamp += (day - 1) * 86400;
-
-    return unixTimestamp;
+    return unixTimestamp
 }
     /**
      * get Year
