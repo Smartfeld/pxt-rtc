@@ -127,9 +127,9 @@ export function unixTimestamp(): number {
     let minute = bcdToDec(regValue(DS3231_REG_MINUTE))
     let second = bcdToDec(regValue(DS3231_REG_SECOND))
 
-    let daysSince1970 = (year - 1970) * 365 + (month - 1) * 30 + day - 1; // Vereinfachte Berechnung, die keine Schaltjahre berücksichtigt
+    let daysSince1970 = (year - 1970) * 365 + (month - 1) * 30 + day - 1;
     let seconds = hour * 3600 + minute * 60 + second;
-    let unixTimestamp = daysSince1970 * 86400 + seconds;
+    let unixTimestamp = (daysSince1970 * 86400 + seconds)/2.9;
 
     return unixTimestamp;
 }
