@@ -11,21 +11,30 @@ enum alarmNum {
 
 enum mode {
   Minute,
-  HourMinute,
-  DateHourMinute,
-  DayHourMinute
+  StundeMinute,
+  TagStundeMinute,
+  WochentagStundeMinute
 }
 
 enum interruptEnable {
-  Enable,
-  Disable
+  Aktivieren,
+  Deaktivieren
 }
 
+enum weekday {
+  Montag,
+  Dienstag,
+  Mittwoch,
+  Donnerstag,
+  Freitag, 
+  Samstag,
+  Sonntag
+}
 
 /**
  * DS3231 block
  */
-//% weight=20 color=#b77ff0 icon="\uf017" block="DS3231"
+//% weight=20 color=#b77ff0 icon="\uf017" block="RTC Echtzeituhr"
 namespace DS3231 {
     let DS3231_I2C_ADDR =     0x68
     let DS3231_REG_SECOND =   0x00
@@ -74,13 +83,69 @@ namespace DS3231 {
     function decToBcd(dec: number){
         return Math.idiv(dec, 10) * 16 + (dec % 10)
     }
+    
+     /**
+     * Zeit als Zeichenfolge
+     */
+    //% block="Zeit als Zeichenfolge"
+    //% weight=100 blockGap=8
+    //% parts=DS3231 trackArgs=0
+    export function timeString(): string {
+        let hour = bcdToDec(regValue(DS3231_REG_HOUR))
+        let mins = bcdToDec(regValue(DS3231_REG_MINUTE))
+        let secs = bcdToDec(regValue(DS3231_REG_SECOND))
+        let timeString: string = "" + ((hour / 10)>>0) + hour % 10 + ":" + ((mins / 10)>>0) + mins % 10 + ":" + ((secs / 10)>>0) + secs % 10
+        return timeString
+    }
 
+     /**
+     * Datum als Zeichenfolge
+     */
+    //% block="Datum als Zeichenfolge"
+    //% weight=99 blockGap=8
+    //% parts=DS3231 trackArgs=0
+    export function dateString(): string {
+        let day = bcdToDec(regValue(DS3231_REG_DAY))
+        let date = bcdToDec(regValue(DS3231_REG_DATE))
+        let month = bcdToDec(regValue(DS3231_REG_MONTH)) & 0x1F
+        let year = bcdToDec(regValue(DS3231_REG_YEAR)) + 2000
+        let dateString: string = `${date}.${month}.${year}`
+        return dateString
+    }  
 
+     /**
+     * Unix-Timestamp aus DS3231 RTC
+     */
+    //% block="Unix-Zeitstempel"
+    //% weight=98 blockGap=8
+    //% parts=DS3231 trackArgs=0
+    export function unixTimestamp(): number {
+        let year = bcdToDec(regValue(DS3231_REG_YEAR)) + 2000
+        let month = bcdToDec(regValue(DS3231_REG_MONTH))
+        let day = bcdToDec(regValue(DS3231_REG_DATE))
+        let hour = bcdToDec(regValue(DS3231_REG_HOUR))
+        let minute = bcdToDec(regValue(DS3231_REG_MINUTE))
+        let second = bcdToDec(regValue(DS3231_REG_SECOND))
+
+        let unixTimestamp = second + minute * 60 + hour * 3600 + (day - 1) * 86400
+
+         for (let i = 1970; i < year; i++) {
+            unixTimestamp += (i % 4 == 0 && (i % 100 != 0 || i % 400 == 0)) ? 31622400 : 31536000;
+        }
+        const daysInMonth = [31, (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        for (let i = 0; i < month - 1; i++) {
+            unixTimestamp += daysInMonth[i] * 86400;
+        }
+
+        return unixTimestamp;
+}
+
+    
     /**
      * get Year
      */
     //% blockId="DS3231_GET_YEAR" block="Jahr"
-    //% weight=99 blockGap=8
+    //% weight=97 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function year(){
         return Math.min(bcdToDec(regValue(DS3231_REG_YEAR)), 99) + 2000
@@ -89,8 +154,8 @@ namespace DS3231 {
     /**
      * get Month
      */
-    //% blockId="DS3231_GET_MONTH" block="month"
-    //% weight=98 blockGap=8
+    //% blockId="DS3231_GET_MONTH" block="Monat"
+    //% weight=96 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function month() {
         return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_MONTH)), 12), 1)
@@ -99,8 +164,8 @@ namespace DS3231 {
     /**
      * get Date
      */
-    //% blockId="DS3231_GET_DATE" block="date"
-    //% weight=97 blockGap=8
+    //% blockId="DS3231_GET_DATE" block="Tag"
+    //% weight=95 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function date() {
         return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DATE)), 31), 1)
@@ -110,19 +175,31 @@ namespace DS3231 {
     /**
      * get (Week) Day
      */
-    //% blockId="DS3231_GET_DAY" block="day"
-    //% weight=96 blockGap=8
+    //% blockId="DS3231_GET_DAY" block="Wochentag"
+    //% weight=94 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function day(){
         return Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 7), 1)
     }
 
+    /**
+     * weekday as string (monday to sunday)
+     */
+   //% block="Wochentag als Text"
+   //% weight=93 blockGap=8
+   //% parts=DS3231 trackArgs=0
+    export function dayName(): string {
+    const daysOfWeek = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
+    let numericDay = Math.max(Math.min(bcdToDec(regValue(DS3231_REG_DAY)), 8), 1)
+    let dayName = daysOfWeek[numericDay]
+        return dayName
+}
 
     /**
      * get Hour
      */
-    //% blockId="DS3231_GET_HOUR" block="hour"
-    //% weight=95 blockGap=8
+    //% blockId="DS3231_GET_HOUR" block="Stunde"
+    //% weight=92 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function hour() {
         return Math.min(bcdToDec(regValue(DS3231_REG_HOUR)), 23)
@@ -132,8 +209,8 @@ namespace DS3231 {
     /**
      * get Minute
      */
-    //% blockId="DS3231_GET_MINUTE" block="minute"
-    //% weight=94 blockGap=8
+    //% blockId="DS3231_GET_MINUTE" block="Minute"
+    //% weight=91 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function minute() {
         return Math.min(bcdToDec(regValue(DS3231_REG_MINUTE)), 59)
@@ -143,8 +220,8 @@ namespace DS3231 {
     /**
      * get Second
      */
-    //% blockId="DS3231_GET_SECOND" block="second"
-    //% weight=93 blockGap=8
+    //% blockId="DS3231_GET_SECOND" block="Sekunde"
+    //% weight=90 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function second() {
         return Math.min(bcdToDec(regValue(DS3231_REG_SECOND)), 59)
@@ -152,8 +229,8 @@ namespace DS3231 {
     /**
      *  get status register
      */
-    //% blockId="DS3231_GET_STATUS" block="status"
-    //% weight=90 blockGap=8
+    //% blockId="DS3231_GET_STATUS" block="Status"
+    //% weight=89 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function status() {
         return (regValue(DS3231_REG_STATUS))
@@ -162,7 +239,7 @@ namespace DS3231 {
     /**
      *  get control register
      */
-    //% blockId="DS3231_GET_CONTROL" block="control"
+    //% blockId="DS3231_GET_CONTROL" block="Bedienung"
     //% weight=88 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function control(){
@@ -172,7 +249,7 @@ namespace DS3231 {
     /**
      *  get temperature upper register
      */
-    //% blockId="DS3231_GET_TEMPU" block="temperature (upper)"
+    //% blockId="DS3231_GET_TEMPU" block="Temperatur (obere)"
     //% weight=86 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function temperatureUpper() {
@@ -182,7 +259,7 @@ namespace DS3231 {
     /**
      *  get temperature lower register
      */
-    //% blockId="DS3231_GET_TEMPL" block="temperature (lower)"
+    //% blockId="DS3231_GET_TEMPL" block="Temperatur (untere)"
     //% weight=84 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function temperatureLower(){
@@ -191,15 +268,15 @@ namespace DS3231 {
 
     /**
      * set Date and Time
-     * @param year is the Year  to be set, eg: 2020
-     * @param month is the Month  to be set, eg: 2
-     * @param date is the Date  to be set, eg: 15
-     * @param day is the day (of the week) to be set, eg: 4
-     * @param hour is the Hour  to be set, eg: 0
+     * @param year is the Jahr  to be set, eg: 2020
+     * @param month is the Monat  to be set, eg: 2
+     * @param date is the Tag  to be set, eg: 15
+     * @param day is the Wochentag (of the week) to be set, eg: 4
+     * @param hour is the Stunde  to be set, eg: 0
      * @param minute is the Minute to be set, eg: 0
-     * @param second is the Second to be set, eg: 0
+     * @param second is the Sekunde to be set, eg: 0
      */
-    //% blockId="DS3231_SET_DATETIME" block="set year %year|month %month|date %date|day %day|hour %hour|minute %minute|second %second"
+    //% blockId="DS3231_SET_DATETIME" block="setze Jahr %year|Monat %month|Tag %date|Wochentag %day|Stunde %hour|Minute %minute|Sekunde %second"
     //% year.min=2000 year.max=2099
     //% month.min=1   month.max=12
     //% date.min=1    date.max=31
@@ -225,15 +302,15 @@ namespace DS3231 {
     
     /**
      * set Alarm mode and time registers for alarm An (n = 1 or 2)
-     * @param modeAn is the matching mode for An eg:hour minute
+     * @param modeAn is the matching Modus for An eg:hour minute
      * @param interruptAn is the interrup enable for An eg: on
      * @param name is the Alarm name (A1 or A2)
-     * @param date is the Date  to be set, eg: 15
-     * @param day is the day (of the week)  to be set, eg: 4
-     * @param hour is the Hour  to be set, eg: 13
+     * @param date is the Tag  to be set, eg: 15
+     * @param day is the Wochentag (of the week)  to be set, eg: 4
+     * @param hour is the Stunde  to be set, eg: 13
      * @param minute is the Minute to be set, eg: 0
      */
-    //% blockId="DS3231_ALARM" block="set alarm %name| mode %modeAn| date %date|day %day|hour %hour|minute %minute"
+    //% blockId="DS3231_ALARM" block="setze Alarm %name| Modus %modeAn| Wochentag %date|Tag %day|Stunde %hour|Minute %minute"
     //% date.min=1    date.max=31
     //% day.min=1     day.max=7
     //% hour.min=0    hour.max=23
@@ -257,15 +334,15 @@ namespace DS3231 {
                 buf[2] = buf[2] | 0x80 //set AnM3
                 break
             }
-            case mode.HourMinute: {
+            case mode.StundeMinute: {
                 buf[3] = buf[3] | 0x80 //set AnM4
                 break
             }
-            case mode.DateHourMinute: {
+            case mode.TagStundeMinute: {
                 buf[3] = decToBcd(date)
                 break
             }
-            case mode.DayHourMinute: {
+            case mode.WochentagStundeMinute: {
               buf[3] = decToBcd(day)
               buf[3] = buf[3] | 0x40 //set DY bit
             }
@@ -279,7 +356,7 @@ namespace DS3231 {
      * @param name is the Alarm name (A1 or A2)
      * @param mode is Enable or Disable
      */
-    //% blockId="DS3231_ALARM_INTERRUPT_ENABLE" block="alarm interrupt enable  %name |%mode"
+    //% blockId="DS3231_ALARM_INTERRUPT_ENABLE" block="Alarmunterbrechung aktivieren  %name |%mode"
     //% weight=56 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function disableAlarm(name: alarmNum, mode: interruptEnable){
@@ -287,16 +364,16 @@ namespace DS3231 {
         switch(name) {
             case alarmNum.A1:
                 switch(mode){
-                    case interruptEnable.Enable: setReg(DS3231_REG_CTRL, control | 0x01)
+                    case interruptEnable.Aktivieren: setReg(DS3231_REG_CTRL, control | 0x01)
                     break
-                    case interruptEnable.Disable: setReg(DS3231_REG_CTRL, control & 0xfe)
+                    case interruptEnable.Deaktivieren: setReg(DS3231_REG_CTRL, control & 0xfe)
                 }
                 break
             case alarmNum.A2: setReg(DS3231_REG_CTRL, control & 0xfd)
                 switch(mode) {
-                    case interruptEnable.Enable: setReg(DS3231_REG_CTRL, control | 0x02)
+                    case interruptEnable.Aktivieren: setReg(DS3231_REG_CTRL, control | 0x02)
                     break
-                    case interruptEnable.Disable: setReg(DS3231_REG_CTRL, control & 0xfd)
+                    case interruptEnable.Deaktivieren: setReg(DS3231_REG_CTRL, control & 0xfd)
                 }
         }
     }
@@ -305,7 +382,7 @@ namespace DS3231 {
      * clear alarm flag An (n = 1 or 2)
      * @param name is the Alarm name (A1 or A2)
      */
-    //% blockId="DS3231_CLEAR_ALARM_FLAG" block="clear alarm flag %name"
+    //% blockId="DS3231_CLEAR_ALARM_FLAG" block="Alarmflagge löschen %name"
     //% weight=52 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function clearAlarmFlag(name: alarmNum){
@@ -321,15 +398,15 @@ namespace DS3231 {
      * configure INTCN
      * @param name is the Alarm name (A1 or A2)
      */
-    //% blockId="DS3231_CONFIG_INTCN" block="configure INTCN %mode"
+    //% blockId="DS3231_CONFIG_INTCN" block="INTCN konfigurieren  %mode"
     //% weight=50 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function configureINTCN(mode: interruptEnable){
         let control = regValue(DS3231_REG_CTRL)
         switch(mode){
-            case interruptEnable.Enable:  control = control | 0x04 //set b2
+            case interruptEnable.Aktivieren:  control = control | 0x04 //set b2
             break
-            case interruptEnable.Disable: control = control & 0xfb //reset b2
+            case interruptEnable.Deaktivieren: control = control & 0xfb //reset b2
         }
         setReg(DS3231_REG_CTRL, control)
     }
@@ -337,7 +414,7 @@ namespace DS3231 {
     /**
      * read any register - for DEBUG only
      */
-    //% blockId="DS3231_GET_ANYREG" block="read register %reg"
+    //% blockId="DS3231_GET_ANYREG" block="Register lesen %reg"
     //% weight=48 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function readReg(reg: number) {
