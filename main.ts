@@ -109,7 +109,7 @@ namespace DS3231 {
         let date = bcdToDec(regValue(DS3231_REG_DATE))
         let month = bcdToDec(regValue(DS3231_REG_MONTH)) & 0x1F
         let year = bcdToDec(regValue(DS3231_REG_YEAR)) + 2000
-        let dateString: string = `${day}:${date}:${month}:${year}`
+        let dateString: string = `${date}.${month}.${year}`
         return dateString
     }  
 
