@@ -421,4 +421,15 @@ namespace DS3231 {
         return (regValue(reg))
     }
 }
+
+ /**
+     * Read alarm flags
+     */
+    //% blockId="DS3231_READ_ALARM_FLAGS" block="Alarmfalgs lesen %alarmNum"
+    //% weight=46 blockGap=8
+    //% parts=DS3231 trackArgs=0
+    export function ReadAlarmRegs() {
+        
+    }
+
 //
