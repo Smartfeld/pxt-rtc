@@ -431,5 +431,6 @@ namespace DS3231 {
     export function ReadAlarmRegs() {
         return (regValue(DS3231_REG_TEMPU))
     }
+}
 
 //
