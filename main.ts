@@ -429,7 +429,7 @@ namespace DS3231 {
     //% weight=46 blockGap=8
     //% parts=DS3231 trackArgs=0
     export function ReadAlarmRegs() {
-        
+        return (1)
     }
 
 //
