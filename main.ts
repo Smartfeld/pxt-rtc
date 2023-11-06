@@ -310,7 +310,7 @@ namespace DS3231 {
      * @param hour is the Stunde  to be set, eg: 13
      * @param minute is the Minute to be set, eg: 0
      */
-    //% blockId="DS3231_ALARM" block="setze Alarm %name| Modus %modeAn| Wochentag %date|Tag %day|Stunde %hour|Minute %minute"
+    //% blockId="DS3231_ALARM" block="setze Alarm %name| Modus %modeAn| Wochentag %day|Tag %date|Stunde %hour|Minute %minute"
     //% date.min=1    date.max=31
     //% day.min=1     day.max=7
     //% hour.min=0    hour.max=23
