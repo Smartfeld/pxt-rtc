@@ -85,7 +85,7 @@ namespace DS3231 {
     }
     
      /**
-     * Zeit als Zeichenfolge
+     * time as string
      */
     //% block="Zeit als Zeichenfolge"
     //% weight=100 blockGap=8
@@ -99,7 +99,7 @@ namespace DS3231 {
     }
 
      /**
-     * Datum als Zeichenfolge
+     * date as string
      */
     //% block="Datum als Zeichenfolge"
     //% weight=99 blockGap=8
@@ -114,7 +114,7 @@ namespace DS3231 {
     }  
 
      /**
-     * Unix-Timestamp aus DS3231 RTC
+     * Unix-timestamp from DS3231 RTC
      */
     //% block="Unix-Zeitstempel"
     //% weight=98 blockGap=8
