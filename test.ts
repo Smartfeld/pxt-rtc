@@ -170,13 +170,13 @@ date = 30
 day = 2
 hour = 23
 minute = 8
-DS3231.setAlarm(alarmNum.A1,mode.HourMinute,date,day,hour,minute)
+DS3231.setAlarm(alarmNum.A1,mode.StundeMinute,date,day,hour,minute)
 //
 date = 9
 day = 7
 hour = 8
 minute = 43
-DS3231.setAlarm(alarmNum.A2,mode.HourMinute,date,day,hour,minute)
+DS3231.setAlarm(alarmNum.A2,mode.StundeMinute,date,day,hour,minute)
 ReadAlarmRegs()
 //
 serial.writeLine("TEST5 - set & read alarm, DayHourMinute mode at (1) 2 23:17, (2) 7 18:53")
@@ -184,12 +184,12 @@ date = 30
 day = 2
 hour = 23
 minute = 17
-DS3231.setAlarm(alarmNum.A1,mode.DayHourMinute,date,day,hour,minute)
+DS3231.setAlarm(alarmNum.A1,mode.TagStundeMinute,date,day,hour,minute)
 date = 9
 day = 7
 hour = 18
 minute = 53
-DS3231.setAlarm(alarmNum.A2,mode.DayHourMinute,date,day,hour,minute)
+DS3231.setAlarm(alarmNum.A2,mode.TagStundeMinute,date,day,hour,minute)
 ReadAlarmRegs()
 //
 serial.writeLine("TEST6 - set & read alarm, DateHourMinute mode at (1) 30 23:20, (2) 9 23:58")
@@ -197,13 +197,13 @@ date = 30
 day = 2
 hour = 23
 minute = 20
-DS3231.setAlarm(alarmNum.A1,mode.DateHourMinute,date,day,hour,minute)
+DS3231.setAlarm(alarmNum.A1,mode.TagStundeMinute,date,day,hour,minute)
 //
 date = 9
 day = 7
 hour = 23
 minute = 58
-DS3231.setAlarm(alarmNum.A2,mode.DateHourMinute, date,day,hour,minute)
+DS3231.setAlarm(alarmNum.A2,mode.TagStundeMinute, date,day,hour,minute)
 ReadAlarmRegs()
 //
 serial.writeLine("TESTS COMPLETED!")
