@@ -35,7 +35,7 @@ enum weekday {
 /**
  * DS3231 block
  */
-//% weight=20 color=#b77ff0 icon="\uf017" block="RTC Echtzeituhr V2.0"
+//% weight=20 color=#b77ff0 icon="\uf017" block="RTC Echtzeituhr"
 namespace DS3231 {
     let DS3231_I2C_ADDR =     0x68
     let DS3231_REG_SECOND =   0x00
